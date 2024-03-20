@@ -1,35 +1,56 @@
-import axios from "axios";
+import Course from "@/components/Course";
+import Dashboard from "@/components/Dashboard";
+import Homepage from "@/components/Homepage";
+import Login from "@/components/Login";
+import PrivateRoute from "@/components/PrivateRoute";
+import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
+import TeacherDashboard from "./components/TeacherDashboard";
 import { useLocalStorage } from "./util/useLocalStorage";
 
 function App() {
   const [jwt, setJwt] = useLocalStorage("", "jwt");
+  const [roles, setRoles] = useState(null);
 
   useEffect(() => {
-    axios
-      .post(
-        "/api/auth/login",
-        {
-          username: "duchiep",
-          password: "Motconvit1?",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-      });
+    if (jwt) {
+      const decodedJwt = jwtDecode(jwt);
+      setRoles(decodedJwt.authorities);
+    } else {
+      return [];
+    }
   }, []);
 
-  useEffect(() => {
-    console.log(`JWT: ${jwt}`);
-  }, [jwt]);
-
-  return <div>What is this {jwt}</div>;
+  return (
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          roles?.includes("ROLE_TEACHER") ? (
+            <PrivateRoute>
+              <TeacherDashboard />
+            </PrivateRoute>
+          ) : (
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          )
+        }
+      />
+      <Route
+        path={`courses/:id`}
+        element={
+          <PrivateRoute>
+            <Course />
+          </PrivateRoute>
+        }
+      />
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Homepage />} />
+    </Routes>
+  );
 }
 
 export default App;
