@@ -15,7 +15,6 @@ export default function PrivateRoute({ children }) {
   if (jwt) {
     ajax("get", `/api/auth/validate?token=${jwt}`, null, jwt).then(
       (response) => {
-        console.log(response.data);
         setIsValid(response.data);
         setIsLoading(false);
         if (!response.data) {

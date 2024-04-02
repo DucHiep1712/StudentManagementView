@@ -18,27 +18,34 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
+} from "../../ui/carousel";
 
 export default function Dashboard() {
   const [jwt, setJwt] = useLocalStorage("", "jwt");
   const [courses, setCourses] = useState(null);
 
-  useEffect(() => {
+  const getCourses = () => {
     ajax("get", "/api/courses", null, jwt)
       .then((response) => {
         setCourses(response.data);
       })
-      .catch((error) => {});
-  }, []);
-
-  const createCourse = () => {
-    ajax("post", "/api/courses", null, jwt);
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Server error",
+          description: "Failed to get courses",
+        });
+      });
   };
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
     <div className="w-full flex gap-8 flex-col container">
       <h1 className="font-semibold text-4xl">Courses</h1>
+      <div className="w-full border-b"></div>
       {courses && courses.length > 0 ? (
         <Carousel
           opts={{
@@ -50,7 +57,7 @@ export default function Dashboard() {
             {courses.map((course, index) => (
               <CarouselItem
                 key={`course-${index}`}
-                className="sm:basis-1 md:basis-1/2 lg:basis-1/3"
+                className="basis-1 md:basis-1/2 lg:basis-1/3"
               >
                 <Link to={`/courses/${course.id}`}>
                   <Card className="cursor-pointer">
@@ -83,7 +90,7 @@ export default function Dashboard() {
           <CarouselNext />
         </Carousel>
       ) : (
-        <></>
+        <div className="font-medium">No course found</div>
       )}
     </div>
   );
