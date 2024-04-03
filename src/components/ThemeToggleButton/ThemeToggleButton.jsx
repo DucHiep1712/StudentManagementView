@@ -1,4 +1,4 @@
-import { useTheme } from "../../provider/ThemeProvider";
+import { useTheme } from "@/provider/ThemeProvider";
 import { useEffect } from "react";
 
 import "./theme-toggle.css";

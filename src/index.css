@@ -26,7 +26,7 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  /* .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -46,7 +46,7 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
-  }
+  } */
 }
 
 @layer base {
@@ -56,4 +56,15 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+::selection {
+  color: white;
+  background-color: #f0ad4e;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

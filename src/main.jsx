@@ -1,13 +1,12 @@
-import axios from "axios";
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-import App from "./App.jsx";
-
-import "./index.css";
-import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "@/provider/ThemeProvider.jsx";
+import App from "@/App.jsx";
 import { Toaster } from "@/components/ui/toaster.jsx";
+import { ThemeProvider } from "@/provider/ThemeProvider.jsx";
+import axios from "axios";
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+
+import "@/index.css";
 
 axios.defaults.baseURL = "http://localhost:8080";
 
@@ -16,8 +15,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <ThemeProvider storageKey="theme">
         <App />
-        <Toaster />
       </ThemeProvider>
+      <Toaster />
     </BrowserRouter>
   </React.StrictMode>
 );
