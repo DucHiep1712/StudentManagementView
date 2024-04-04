@@ -1,14 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
@@ -83,6 +76,7 @@ export default function Course() {
   };
 
   const saveCourse = () => {
+    console.log(course)
     ajax("put", `/api/courses/${courseId}`, course, jwt).then((response) => {
       if (!response.data.name) {
         response.data.name = "";
@@ -95,6 +89,7 @@ export default function Course() {
   const getUnenrolledStudents = () => {
     ajax("get", `/api/courses/${courseId}/students`, null, jwt)
       .then((response) => {
+        console.log(response.data);
         setUnenrolledStudens(response.data);
       })
       .catch(() => {
@@ -276,8 +271,8 @@ export default function Course() {
               onChange={(event) => setStudentId(event.target.value)}
             />
             <div className="w-full flex flex-col items-center gap-2.5">
-              {unenrolledStudents.length > 0 ? (
-                unenrolledStudents.map((student, index) => {
+              {unenrolledStudents?.length > 0 ? (
+                unenrolledStudents?.map((student, index) => {
                   if (
                     (studentId !== "" &&
                       student.id.toString().includes(studentId.toString())) ||

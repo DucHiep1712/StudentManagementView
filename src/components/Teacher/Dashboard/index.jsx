@@ -76,8 +76,8 @@ export default function TeacherDashboard() {
             className="w-full"
           >
             <CarouselContent>
-              {courses
-                ? courses.map((course, index) => (
+              {courses !== null
+                ? courses?.map((course, index) => (
                     <CarouselItem
                       key={`course-${index}`}
                       className="sm:basis-1 md:basis-1/2 lg:basis-1/3"

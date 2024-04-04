@@ -59,6 +59,8 @@ export default function Course() {
       .catch((error) => {});
   }, []);
 
+  console.log(course);
+
   return (
     <div className="container bg-background flex flex-col gap-y-12 items-center justify-center">
       <div className="w-full flex gap-4 items-center justify-between">
@@ -74,8 +76,8 @@ export default function Course() {
         </Badge>
       </div>
       <h1 className="font-bold text-4xl w-full">
-        <span className="font-semibold text-3xl">Head teacher: </span>{" "}
-        {course?.teacher?.username}
+        <span className="font-semibold text-3xl">Head teacher's ID:</span>{" "}
+        {course?.teacherId}
       </h1>
       <div className="w-full grid grid-cols-2 gap-y-4 max-sm:grid-cols-1 max-sm:grid-flow-row place-content-center">
         <div className="self-start flex flex-col gap-2.5 justify-start">
