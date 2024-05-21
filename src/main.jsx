@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "@/index.css";
 
-axios.defaults.baseURL = "https://dockerapp-v2-0.onrender.com";
+axios.defaults.baseURL = "http://34.70.170.117:80";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
