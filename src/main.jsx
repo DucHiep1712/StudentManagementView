@@ -8,15 +8,15 @@ import { BrowserRouter } from "react-router-dom";
 
 import "@/index.css";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "https://dockerapp-v2-0.onrender.com";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider storageKey="theme">
+    <ThemeProvider storageKey="theme">
+      <BrowserRouter>
         <App />
-      </ThemeProvider>
-      <Toaster />
-    </BrowserRouter>
+        <Toaster />
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
